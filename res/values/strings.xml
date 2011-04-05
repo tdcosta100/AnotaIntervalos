@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Anotador de  Intervalos</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="anotacoes_data">Data da anotação</string>
+    <string name="anotacoes_linha">Linha</string>
+    <string name="anotacoes_estacao">Estação</string>
+    <string name="anotacoes_sentido">Sentido</string>
+    <string name="anotacoes_adicionar">Adicionar anotação</string>
+    <string name="anotacoes_editar">Editar anotação</string>
+    <string name="anotacoes_remover">Remover anotação</string>
+    <string name="anotacoes_vazio">Sem anotações</string>
+    <string name="partidas_vazio">Sem partidas</string>
+    <string-array name="linhas_numeros">
+    	<item>1</item>
+    	<item>2</item>
+    	<item>3</item>
+    	<item>4</item>
+    	<item>5</item>
+    	<item>7</item>
+    	<item>8</item>
+    	<item>9</item>
+    	<item>10</item>
+    	<item>11</item>
+    	<item>12</item>
+    </string-array>
+    <string-array name="linhas_descricoes">
+    	<item>Azul</item>
+    	<item>Verde</item>
+    	<item>Vermelha</item>
+    	<item>Amarela</item>
+    	<item>Lilás</item>
+    	<item>Rubi</item>
+    	<item>Diamante</item>
+    	<item>Esmeralda</item>
+    	<item>Turquesa</item>
+    	<item>Coral</item>
+    	<item>Safira</item>
+    </string-array>
+</resources>

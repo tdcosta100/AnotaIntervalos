@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<TableLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:stretchColumns="1">
+		
+		<TableRow>
+			<TextView
+				android:layout_column="1"
+				android:text="@string/anotacoes_data"
+				android:padding="3dip"
+				android:layout_weight="1" />
+			<TextView
+				android:text="@string/anotacoes_linha"
+				android:gravity="left"
+				android:padding="5dip"
+				android:layout_weight="1" />
+			<TextView
+				android:text="@string/anotacoes_estacao"
+				android:gravity="right"
+				android:padding="3dip"
+				android:layout_weight="1" />
+			<TextView
+				android:text="@string/anotacoes_sentido"
+				android:gravity="right"
+				android:padding="3dip"
+				android:layout_weight="1" />
+		</TableRow>
+	</TableLayout>
+	
+	<TextView
+		android:id="@+id/android:empty"
+		android:text="@string/anotacoes_vazio"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1" />
+	
+	<ScrollView
+		android:id="@+id/listaAnotacoes"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1">
+		
+		<TableLayout
+		android:id="@+id/android:list"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:stretchColumns="1"
+		android:layout_weight="1" />
+		
+	</ScrollView>
+	
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom">
+		
+		<Button
+			android:id="@+id/btnAdicionarAnotacao"
+			android:text="@string/anotacoes_adicionar"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+		
+	</LinearLayout>
+</LinearLayout>

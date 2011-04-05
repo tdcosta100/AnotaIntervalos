@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style parent="@android:style/Theme" name="TemaListaPartidas">
+    	<item name="android:windowTitleSize">42.5sp</item>
+    </style>
+</resources>

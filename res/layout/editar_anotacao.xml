@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<TextView
+		android:text="@string/anotacoes_data"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	<TextView
+		android:id="@+id/anotacao_dataHora"
+		android:text="dataHora"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="3dip" />
+	<TextView
+		android:text="@string/anotacoes_linha"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	<!-- <EditText
+		android:id="@+id/anotacao_linha"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" /> -->
+	<Spinner
+		android:id="@+id/anotacao_linha"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:prompt="@string/anotacoes_linha" />
+	
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="3dip" />
+	<TextView
+		android:text="@string/anotacoes_estacao"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	<!-- <EditText
+		android:id="@+id/anotacao_estacao"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" /> -->
+	<Spinner
+		android:id="@+id/anotacao_estacao"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:prompt="@string/anotacoes_estacao" />
+	
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="3dip" />
+	<TextView
+		android:text="@string/anotacoes_sentido"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	<!-- <EditText
+		android:id="@+id/anotacao_sentido"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" /> -->
+	<Spinner
+		android:id="@+id/anotacao_sentido"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:prompt="@string/anotacoes_sentido" />
+
+	
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		
+		<Button
+			android:id="@+id/btnConfirmarAnotacao"
+			android:text="@string/confirmar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1" />
+		<Button
+			android:id="@+id/btnCancelarAnotacao"
+			android:text="@string/cancelar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1" />
+	</LinearLayout>
+</LinearLayout>

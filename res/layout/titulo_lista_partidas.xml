@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+   	<TextView
+   		style="@style/TemaTituloListaPartidas"
+   		android:id="@+id/titulo_listaPartidas_dataHora"
+   		android:text="dd/MM/yyyy HH:mm:ss"
+   		android:layout_width="fill_parent"
+   		android:layout_height="wrap_content"
+   		/>
+   	<LinearLayout
+   		android:orientation="horizontal"
+   		android:layout_width="fill_parent"
+   		android:layout_height="wrap_content">
+	   	<TextView
+	   		style="@style/TemaTituloListaPartidas"
+	   		android:id="@+id/titulo_listaPartidas_linha"
+	   		android:text="Linha X"
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	   		/>
+	   	<TextView
+	   		style="@style/TemaTituloListaPartidas"
+	   		android:text=" - "
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	   		/>
+	   	<TextView
+	   		style="@style/TemaTituloListaPartidas"
+	   		android:id="@+id/titulo_listaPartidas_estacao"
+	   		android:text="Estação ABC"
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	   		/>
+	   	<TextView
+	   		style="@style/TemaTituloListaPartidas"
+	   		android:text=" - "
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	   		/>
+	   	<TextView
+	   		style="@style/TemaTituloListaPartidas"
+	   		android:id="@+id/titulo_listaPartidas_sentido"
+	   		android:text="Sentido DEF"
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	   		/>
+	   	</LinearLayout>
+</LinearLayout>
