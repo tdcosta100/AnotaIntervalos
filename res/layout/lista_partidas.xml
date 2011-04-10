@@ -47,11 +47,10 @@
 		    android:stretchColumns="1"
 		    android:layout_weight="1">
 	    	
-			<TableLayout
+			<com.tiago.AnotaIntervalos.TableLayoutView
 	    		android:id="@+id/android:list"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-			    android:stretchColumns="1"
 			    android:layout_weight="1">
 			    <!--
 			    <TableRow>
@@ -133,7 +132,7 @@
 			            android:padding="3dip" />
 			    </TableRow>
 			    -->
-			</TableLayout>
+			</com.tiago.AnotaIntervalos.TableLayoutView>>
 		
 		</ScrollView>
 	</LinearLayout>

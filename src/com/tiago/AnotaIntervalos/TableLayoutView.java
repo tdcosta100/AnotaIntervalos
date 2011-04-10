@@ -1,171 +1,158 @@
 package com.tiago.AnotaIntervalos;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.database.DataSetObserver;
 import android.util.AttributeSet;
-import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
-public class TableLayoutView extends AbsListView
+public class TableLayoutView extends AdapterView<ListAdapter>
 {
-	private Context mContext;
-	private LayoutInflater mLayoutInflater;
-	private TableLayout mTableLayout;
-	private int mTableRowResource;
-	private View mEmpty;
-	private ListAdapter mAdapter;
-	private AdapterView.OnItemClickListener mOnItemClickListener;
-	private View.OnCreateContextMenuListener mOnCreateContextMenuListener;
-	private ContextMenuInfo mContextMenuInfo;
+	Context							mContext;
+	TableLayout						mTableLayout;
+	ListAdapter						mAdapter;
+	LayoutInflater					mInflater;
+	DataSetObserver					mDataSetObserver;
+	int								mWidthMeasureSpec;
+	int								mSelectedPosition;
+	AdapterView.OnItemClickListener	mOnItemClickListener;
+	ContextMenuInfo					mContextMenuInfo	= null;
 	
-	public class OnItemClickListener implements View.OnClickListener
+	private class OnClickListener implements View.OnClickListener
 	{
-		private TableLayoutView mListener;
-		private int mPosition;
+		TableLayoutView	mView;
+		int				mPosition;
 		
-		public OnItemClickListener(TableLayoutView listener, int position)
+		public OnClickListener(TableLayoutView view, int position)
 		{
-			mListener = listener;
+			mView = view;
 			mPosition = position;
 		}
 		
 		@Override
 		public void onClick(View v)
 		{
-			if(mOnItemClickListener != null)
+			AdapterView.OnItemClickListener listener = getOnItemClickListener();
+			
+			if (listener != null)
 			{
-				mOnItemClickListener.onItemClick(mListener, v, mPosition, mAdapter.getItemId(mPosition));
+				listener.onItemClick(mView, v, mPosition,
+						mAdapter.getItemId(mPosition));
 			}
 		}
 	}
 	
-	
-	public class OnCreateContextMenuItemListener implements View.OnCreateContextMenuListener
+	private class OnLongClickListener implements View.OnLongClickListener
 	{
-		private TableLayoutView mListener;
-		private int mPosition;
+		TableLayoutView	mView;
+		int				mPosition;
 		
-		public OnCreateContextMenuItemListener(TableLayoutView listener, int position)
+		public OnLongClickListener(TableLayoutView view, int position)
 		{
-			mListener = listener;
+			mView = view;
 			mPosition = position;
 		}
 		
 		@Override
-		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+		public boolean onLongClick(View v)
 		{
-			AdapterContextMenuInfo itemMenuInfo = new AdapterContextMenuInfo(v, mPosition, mAdapter.getItemId(mPosition));
-			
-			mListener.setContextMenuInfo(itemMenuInfo);
-			if(mListener.mOnCreateContextMenuListener != null)
-				mListener.mOnCreateContextMenuListener.onCreateContextMenu(menu, v, itemMenuInfo);
+			mContextMenuInfo = new AdapterView.AdapterContextMenuInfo(v,
+					mPosition, mAdapter.getItemId(mPosition));
+			mView.showContextMenuForChild(mView);
+			return true;
 		}
 	}
 	
-	
 	public TableLayoutView(Context context)
 	{
-		this(context, null, -1, null);
+		super(context);
+		mContext = context;
+		init(null);
 	}
 	
-	
-	public TableLayoutView(Context context, TableLayout tableLayout, int tableRowResource)
-	{
-		this(context, tableLayout, tableRowResource, null);
-	}
-	
-	
-	public TableLayoutView(Context context, TableLayout tableLayout, int tableRowResource, View empty)
-	{
-		this(context, tableLayout, tableRowResource, empty, null);
-	}
-	
-	public TableLayoutView(Context context, TableLayout tableLayout, int tableRowResource, View empty, AttributeSet attrs)
+	public TableLayoutView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		mContext = context;
-		mTableLayout = tableLayout;
-		mTableRowResource = tableRowResource;
-		mEmpty = empty;
-		inicializarTableLayoutView();
+		init(attrs);
 	}
 	
 	public TableLayoutView(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
 		mContext = context;
-		inicializarTableLayoutView();
+		init(attrs);
 	}
 	
-	private void inicializarTableLayoutView()
+	private void init(AttributeSet attrs)
 	{
-		if(mTableLayout != null)
-		{
-			mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		}
+		mTableLayout = new TableLayout(mContext);
+		mInflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		mTableLayout.setLayoutParams(new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.FILL_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT));
 	}
 	
-	private void montarLayout()
+	public void setColumnCollapsed(int columnIndex, boolean isCollapsed)
 	{
-		int numLinhas = mAdapter.getCount();
-		mTableLayout.removeAllViews();
+		mTableLayout.setColumnCollapsed(columnIndex, isCollapsed);
+	}
+	
+	public void setColumnShrinkable(int columnIndex, boolean isShrinkable)
+	{
+		mTableLayout.setColumnShrinkable(columnIndex, isShrinkable);
+	}
+	
+	public void setColumnStretchable(int columnIndex, boolean isStretchable)
+	{
+		mTableLayout.setColumnStretchable(columnIndex, isStretchable);
+	}
+	
+	public void setShrinkAllColumns(boolean shrinkAllColumns)
+	{
+		mTableLayout.setShrinkAllColumns(shrinkAllColumns);
+	}
+	
+	public void setStretchAllColumns(boolean stretchAllColumns)
+	{
+		mTableLayout.setStretchAllColumns(stretchAllColumns);
+	}
+	
+	
+	private void addRows()
+	{
+		int count = mAdapter.getCount();
 		
-		if(mEmpty == null)
+		for (int i = 0; i < count; i++)
 		{
-			mEmpty = this.getEmptyView();
-		}
-		
-		if(numLinhas > 0)
-		{
-			if(mEmpty != null)
+			View row = mAdapter.getView(i, null, mTableLayout);
+			
+			if (row.getLayoutParams() == null)
 			{
-				mEmpty.setVisibility(View.GONE);
+				row.setLayoutParams(new TableLayout.LayoutParams(
+						TableLayout.LayoutParams.FILL_PARENT,
+						TableLayout.LayoutParams.WRAP_CONTENT));
 			}
 			
-			mTableLayout.setVisibility(View.VISIBLE);
-			
-			for (int position = 0; position < numLinhas; position++)
+			if (row.getBackground() == null)
 			{
-				TableRow convertView = (TableRow) mLayoutInflater.inflate(mTableRowResource, mTableLayout, false);
-				
-				if(convertView.getBackground() == null)
-				{
-					convertView.setBackgroundResource(android.R.drawable.list_selector_background);
-				}
-				convertView.setOnClickListener(new OnItemClickListener(this, position));
-				convertView.setOnCreateContextMenuListener(new OnCreateContextMenuItemListener(this, position));
-				
-				mTableLayout.addView(mAdapter.getView(position, convertView, mTableLayout));
-				
-				View divider = mLayoutInflater.inflate(R.layout.divider_tablelayout, mTableLayout);
-				divider.setEnabled(false);
+				row.setBackgroundResource(android.R.drawable.list_selector_background);
 			}
-		}
-		else if(mEmpty != null)
-		{
-			mTableLayout.setVisibility(View.GONE);
-			mEmpty.setVisibility(View.VISIBLE);
+			
+			row.setOnClickListener(new OnClickListener(this, i));
+			row.setOnLongClickListener(new OnLongClickListener(this, i));
+			
+			mTableLayout.addView(row);
 		}
 	}
 	
-	public void setTableLayout(TableLayout tableLayout)
-	{
-		mTableLayout = tableLayout;
-		
-		inicializarTableLayoutView();
-	}
-	
-	public TableLayout getTableLayout()
-	{
-		return mTableLayout;
-	}
 	
 	@Override
 	public ListAdapter getAdapter()
@@ -176,42 +163,96 @@ public class TableLayoutView extends AbsListView
 	@Override
 	public void setAdapter(ListAdapter adapter)
 	{
+		if (mAdapter != null)
+		{
+			mAdapter.unregisterDataSetObserver(mDataSetObserver);
+		}
+		
 		mAdapter = adapter;
 		
-		if(mAdapter != null)
+		if (mAdapter != null)
 		{
-			montarLayout();
+			mDataSetObserver = new DataSetObserver()
+			{
+				@Override
+				public void onChanged()
+				{
+					mTableLayout.removeAllViews();
+					requestLayout();
+				}
+			};
+			
+			mAdapter.registerDataSetObserver(mDataSetObserver);
+			
+			if (mAdapter != null)
+			{
+				int count = mAdapter.getCount();
+				
+				if(count > 0)
+				{
+					getEmptyView().setVisibility(View.GONE);
+					this.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					getEmptyView().setVisibility(View.VISIBLE);
+					this.setVisibility(View.GONE);
+				}
+			}
+			
+			requestLayout();
 		}
+	}
+	
+	@Override
+	public View getSelectedView()
+	{
+		return mTableLayout.getChildAt(mSelectedPosition);
 	}
 	
 	@Override
 	public void setSelection(int position)
 	{
+		mSelectedPosition = position;
 	}
 	
-	public void setOnItemClickListener(AdapterView.OnItemClickListener listener)
+	@Override
+	protected void onLayout(boolean changed, int left, int top, int right,
+			int bottom)
 	{
-		super.setOnItemClickListener(listener);
-		mOnItemClickListener = listener;
+		super.onLayout(changed, left, top, right, bottom);
+		
+		mTableLayout.removeAllViews();
+		addRows();
+		
+		addViewInLayout(mTableLayout, -1, new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.FILL_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT), true);
+		
+		mTableLayout.measure(
+				MeasureSpec.EXACTLY | MeasureSpec.getSize(getMeasuredWidth()),
+				MeasureSpec.UNSPECIFIED);
+		
+		mTableLayout.layout(0, 0, mTableLayout.getMeasuredWidth(),
+				mTableLayout.getMeasuredHeight());
 	}
 	
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+	{
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
+		mWidthMeasureSpec = widthMeasureSpec;
+		
+		mTableLayout.measure(MeasureSpec.EXACTLY | MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.UNSPECIFIED);
+		
+		setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec),
+				mTableLayout.getHeight());
+	}
 	
 	@Override
 	protected ContextMenuInfo getContextMenuInfo()
 	{
 		return mContextMenuInfo;
-	}
-	
-	
-	private void setContextMenuInfo(ContextMenuInfo menuInfo)
-	{
-		mContextMenuInfo = menuInfo;
-	}
-
-
-	@Override
-	public void setOnCreateContextMenuListener(OnCreateContextMenuListener l)
-	{
-		mOnCreateContextMenuListener = l;
 	}
 }

@@ -11,7 +11,10 @@
     <string name="anotacoes_editar">Editar anotação</string>
     <string name="anotacoes_remover">Remover anotação</string>
     <string name="anotacoes_vazio">Sem anotações</string>
+    <string name="anotacoes_contextMenu">Selecione uma ação</string>
     <string name="partidas_vazio">Sem partidas</string>
+    <string name="partidas_remover">Remover partida</string>
+    <string name="partidas_contextMenu">Selecione uma ação</string>
     <string-array name="linhas_numeros">
     	<item>1</item>
     	<item>2</item>
