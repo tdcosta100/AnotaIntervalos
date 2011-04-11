@@ -32,6 +32,10 @@
 				android:padding="3dip"
 				android:layout_weight="1" />
 		</TableRow>
+		<View
+			android:layout_width="fill_parent"
+			android:layout_height="1dip"
+			android:background="@android:drawable/divider_horizontal_dark" />
 	</TableLayout>
 
 	<TextView
@@ -45,6 +49,7 @@
 		android:id="@+id/listaAnotacoes"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:fillViewport="true"
 		android:layout_weight="1">
 
 		<com.tiago.AnotaIntervalos.TableLayoutView

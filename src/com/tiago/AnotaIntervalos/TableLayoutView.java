@@ -125,7 +125,6 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 		mTableLayout.setStretchAllColumns(stretchAllColumns);
 	}
 	
-	
 	private void addRows()
 	{
 		int count = mAdapter.getCount();
@@ -150,9 +149,21 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 			row.setOnLongClickListener(new OnLongClickListener(this, i));
 			
 			mTableLayout.addView(row);
+			
+			View divider = new View(mContext);
+			
+			int widthMeasureSpec = MeasureSpec.makeMeasureSpec(getWidth(),
+					MeasureSpec.EXACTLY);
+			int heightMeasureSpec = MeasureSpec.makeMeasureSpec(1,
+					MeasureSpec.EXACTLY);
+			
+			divider.measure(widthMeasureSpec, heightMeasureSpec);
+			divider.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
+			divider.setEnabled(false);
+			
+			mTableLayout.addView(divider);
 		}
 	}
-	
 	
 	@Override
 	public ListAdapter getAdapter()
@@ -177,7 +188,21 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 				@Override
 				public void onChanged()
 				{
+					int count = mAdapter.getCount();
+					
+					if (count > 0)
+					{
+						getEmptyView().setVisibility(View.GONE);
+						setVisibility(View.VISIBLE);
+					}
+					else
+					{
+						getEmptyView().setVisibility(View.VISIBLE);
+						setVisibility(View.GONE);
+					}
+					
 					mTableLayout.removeAllViews();
+					addRows();
 					requestLayout();
 				}
 			};
@@ -188,7 +213,7 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 			{
 				int count = mAdapter.getCount();
 				
-				if(count > 0)
+				if (count > 0)
 				{
 					getEmptyView().setVisibility(View.GONE);
 					this.setVisibility(View.VISIBLE);
@@ -198,6 +223,9 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 					getEmptyView().setVisibility(View.VISIBLE);
 					this.setVisibility(View.GONE);
 				}
+				
+				mTableLayout.removeAllViews();
+				addRows();
 			}
 			
 			requestLayout();
@@ -222,19 +250,17 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 	{
 		super.onLayout(changed, left, top, right, bottom);
 		
-		mTableLayout.removeAllViews();
-		addRows();
+		removeAllViewsInLayout();
 		
-		addViewInLayout(mTableLayout, -1, new ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.FILL_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT), true);
-		
-		mTableLayout.measure(
-				MeasureSpec.EXACTLY | MeasureSpec.getSize(getMeasuredWidth()),
-				MeasureSpec.UNSPECIFIED);
+		mTableLayout.measure(MeasureSpec.makeMeasureSpec(getMeasuredWidth(),
+				MeasureSpec.AT_MOST), MeasureSpec.UNSPECIFIED);
 		
 		mTableLayout.layout(0, 0, mTableLayout.getMeasuredWidth(),
 				mTableLayout.getMeasuredHeight());
+		
+		addViewInLayout(mTableLayout, -1, new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.FILL_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT), false);
 	}
 	
 	@Override
@@ -244,10 +270,14 @@ public class TableLayoutView extends AdapterView<ListAdapter>
 		
 		mWidthMeasureSpec = widthMeasureSpec;
 		
-		mTableLayout.measure(MeasureSpec.EXACTLY | MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.UNSPECIFIED);
+		mTableLayout.measure(MeasureSpec.makeMeasureSpec(
+				MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.AT_MOST),
+				MeasureSpec.UNSPECIFIED);
 		
-		setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec),
-				mTableLayout.getHeight());
+		int width = MeasureSpec.getSize(widthMeasureSpec);
+		int height = mTableLayout.getMeasuredHeight();
+		
+		setMeasuredDimension(width, height);
 	}
 	
 	@Override

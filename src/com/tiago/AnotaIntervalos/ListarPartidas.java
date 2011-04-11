@@ -14,11 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TableLayout;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class ListarPartidas extends Activity
 {
@@ -206,5 +206,13 @@ public class ListarPartidas extends Activity
 		}
 		
 		return super.onContextItemSelected(item);
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		
+		mDbHelper.close();
 	}
 }

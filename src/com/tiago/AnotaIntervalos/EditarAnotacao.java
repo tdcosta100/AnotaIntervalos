@@ -368,4 +368,11 @@ public class EditarAnotacao extends Activity
 		outState.putSerializable(IntervalosDbAdapter.ANOTACOES_ESTACAO, mEstacao);
 		outState.putSerializable(IntervalosDbAdapter.ANOTACOES_SENTIDO, mSentido);
 	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		mDbHelper.close();
+	}
 }

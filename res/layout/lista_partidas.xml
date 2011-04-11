@@ -1,151 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 	<LinearLayout
-    	android:orientation="vertical"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_weight="1">
-	    <TableLayout
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:stretchColumns="1">
-		    
-		    <TableRow>
-		        <TextView
-		        	android:layout_column="1"
-		            android:text="Trem"
-		            android:padding="3dip"
-		            android:layout_weight="1" />
-		        <TextView
-		            android:text="Partida"
-		            android:gravity="left"
-		            android:padding="5dip"
-		            android:layout_weight="1" />
-		        <TextView
-		            android:text="Intervalo"
-		            android:gravity="right"
-		            android:padding="3dip"
-		            android:layout_weight="1" />
-		    </TableRow>
-		    
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1">
+		<TableLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:stretchColumns="1">
+
+			<TableRow>
+				<TextView
+					android:layout_column="1"
+					android:text="Trem"
+					android:padding="3dip"
+					android:layout_weight="1" />
+				<TextView
+					android:text="Partida"
+					android:gravity="left"
+					android:padding="5dip"
+					android:layout_weight="1" />
+				<TextView
+					android:text="Intervalo"
+					android:gravity="right"
+					android:padding="3dip"
+					android:layout_weight="1" />
+			</TableRow>
+			<View
+				android:layout_width="fill_parent"
+				android:layout_height="1dip"
+				android:background="@android:drawable/divider_horizontal_dark" />
 		</TableLayout>
-	    
+
 		<TextView
 			android:id="@+id/android:empty"
 			android:text="@string/partidas_vazio"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_weight="1" />
-		
-	    <ScrollView
+
+		<ScrollView
 			android:id="@+id/listaPartidas"
-	    	android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:stretchColumns="1"
-		    android:layout_weight="1">
-	    	
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:fillViewport="true"
+			android:layout_weight="1">
+
 			<com.tiago.AnotaIntervalos.TableLayoutView
-	    		android:id="@+id/android:list"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="1">
-			    <!--
-			    <TableRow>
-			        <TextView
-			        	android:layout_column="1"
-			            android:text="Trem"
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="Partida"
-			            android:gravity="left"
-			            android:padding="5dip" />
-			        <TextView
-			            android:text="Intervalo"
-			            android:gravity="right"
-			            android:padding="3dip" />
-			    </TableRow>
-			    <TableRow>
-			        <TextView
-			            android:text="1."
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7061/62/63/64"
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7:56:45"
-			            android:gravity="left"
-			            android:padding="5dip" />
-			        <TextView
-			            android:text="5:35"
-			            android:gravity="right"
-			            android:padding="3dip" />
-			    </TableRow>
-			    <TableRow>
-			        <TextView
-			            android:text="2."
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7061/62/63/64"
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7:56:45"
-			            android:gravity="left"
-			            android:padding="5dip" />
-			        <TextView
-			            android:text="5:35"
-			            android:gravity="right"
-			            android:padding="3dip" />
-			    </TableRow>
-			    <TableRow>
-			        <TextView
-			            android:text="3."
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7061/62/63/64"
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7:56:45"
-			            android:gravity="left"
-			            android:padding="5dip" />
-			        <TextView
-			            android:text="5:35"
-			            android:gravity="right"
-			            android:padding="3dip" />
-			    </TableRow>
-			    <TableRow>
-			        <TextView
-			            android:text="4."
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7061/62/63/64"
-			            android:padding="3dip" />
-			        <TextView
-			            android:text="7:56:45"
-			            android:gravity="left"
-			            android:padding="5dip" />
-			        <TextView
-			            android:text="5:35"
-			            android:gravity="right"
-			            android:padding="3dip" />
-			    </TableRow>
-			    -->
-			</com.tiago.AnotaIntervalos.TableLayoutView>>
-		
+				android:id="@+id/android:list"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
 		</ScrollView>
 	</LinearLayout>
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
-		
+
 		<Button
 			android:id="@+id/btnAdicionarPartida"
 			android:text="Adicionar partida"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content" />
-		
+
 	</LinearLayout>
 </LinearLayout>

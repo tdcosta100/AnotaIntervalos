@@ -177,4 +177,11 @@ public class AnotaIntervalos extends Activity
 		
 		return super.onContextItemSelected(item);
 	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		mDbHelper.close();
+	}
 }

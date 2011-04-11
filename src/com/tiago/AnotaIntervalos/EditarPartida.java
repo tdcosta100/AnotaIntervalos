@@ -229,4 +229,11 @@ public class EditarPartida extends Activity
 		outState.putSerializable(IntervalosDbAdapter.PARTIDAS_HORA, mDataHora);
 		outState.putSerializable(IntervalosDbAdapter.PARTIDAS_IDTREM, mIdTrem);
 	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		mDbHelper.close();
+	}
 }
